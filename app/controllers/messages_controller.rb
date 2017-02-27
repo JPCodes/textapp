@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  skip_before_action :verify_authenticity_token, :only => [:reply]
+
   def index
     @messages = Message.all
   end
@@ -24,9 +26,20 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
   end
 
+  def reply
+    @output = {"Message" => "Message from Rails"}
+    render :xml => @output.to_xml(:root => 'Response')
+  end
+
   private
 
   def message_params
     params.require(:message).permit(:to, :from, :body)
   end
+
+  # protected
+  #
+  # def xml_request?
+  #    request.format.xml?
+  # end
 end
