@@ -1,8 +1,10 @@
 <h1>New message</h1>
+<div id="message-div">
 
+</div>
 <%= render 'layouts/errors', object: @message  %>
 
-<%= form_for @message do |f| %>
+<%= form_for @message, remote: true do |f| %>
 <%= f.label :to %>
 <%= f.text_field :to %>
 <%= f.label :from %>
